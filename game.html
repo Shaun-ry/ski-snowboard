@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Snake Banana 🍌 - Animations améliorées</title>
+<style>
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    background: linear-gradient(to right, #6dd5fa, #2980b9);
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    color: #fff;
+    padding-top: 20px;
+  }
+
+  #gameWrapper {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+  }
+
+  #gameContainer {
+    position: relative;
+    background: #222;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    overflow: hidden;
+  }
+
+  canvas {
+    display: block;
+    background: #111;
+    border-radius: 20px;
+  }
+
+  #scoreboard, #bestScore {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 10px;
+  }
+
+  #controls {
+    background: rgba(0,0,0,0.5);
+    padding: 15px 20px;
+    border-radius: 15px;
+    width: 180px;
+    text-align: center;
+    font-size: 1rem;
+  }
+
+  #controls h3 {
+    margin-bottom: 10px;
+  }
+
+  .key {
+    display: inline-block;
+    background: #ffeb3b;
+    color: #111;
+    padding: 5px 10px;
+    margin: 3px;
+    border-radius: 5px;
+    font-weight: 600;
+  }
+
+  .game-over {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2rem;
+    text-align: center;
+    background: rgba(0,0,0,0.7);
+    padding: 20px 40px;
+    border-radius: 15px;
+    display: none;
+    z-index: 10;
+  }
+
+  button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    background: #ffeb3b;
+    color: #111;
+    font-weight: 600;
+    transition: transform 0.2s;
+  }
+
+  button:hover {
+    transform: scale(1.05);
+  }
+</style>
+</head>
+<body>
+
+<div id="gameWrapper">
+  <div id="gameContainer">
+    <canvas id="gameCanvas" width="600" height="600"></canvas>
+    <div id="scoreboard">Score: 0</div>
+    <div id="bestScore">Best: 0</div>
+    <div class="game-over" id="gameOver">
+      <div>Game Over 😢</div>
+      <button id="restartBtn">Rejouer</button>
+    </div>
+  </div>
+
+  <div id="controls">
+    <h3>Touches</h3>
+    <div><span class="key">↑</span> Haut</div>
+    <div><span class="key">↓</span> Bas</div>
+    <div><span class="key">←</span> Gauche</div>
+    <div><span class="key">→</span> Droite</div>
+  </div>
+</div>
+
+<audio id="eatSound" src="https://freesound.org/data/previews/331/331912_3248244-lq.mp3"></audio>
+<audio id="gameOverSound" src="https://freesound.org/data/previews/198/198841_2859974-lq.mp3"></audio>
+
+<script>
+const canvas = document.getElementById("gameCanvas");
+const ctx = canvas.getContext("2d");
+
+const gridSize = 20;
+const tileCount = canvas.width / gridSize;
+
+let snake = [{x:10, y:10}];
+let velocity = {x:0, y:0};
+let banana = {x:5, y:5};
+let score = 0;
+let bestScore = localStorage.getItem("bestScore") || 0;
+let speed = 8; // vitesse initiale
+let gameInterval;
+
+const scoreboard = document.getElementById("scoreboard");
+const bestScoreElem = document.getElementById("bestScore");
+const gameOverElem = document.getElementById("gameOver");
+const restartBtn = document.getElementById("restartBtn");
+const eatSound = document.getElementById("eatSound");
+const gameOverSound = document.getElementById("gameOverSound");
+
+bestScoreElem.textContent = `Best: ${bestScore}`;
+
+// Particules pour animation banane
+let particles = [];
+
+function createParticles(x, y) {
+  for(let i=0;i<25;i++){
+    particles.push({
+      x: x*gridSize + gridSize/2,
+      y: y*gridSize + gridSize/2,
+      dx: (Math.random()-0.5)*4,
+      dy: (Math.random()-1.5)*4,
+      alpha: 1,
+      size: Math.random()*5+2
+    });
+  }
+}
+
+function updateParticles() {
+  particles.forEach((p,i)=>{
+    p.x += p.dx;
+    p.y += p.dy;
+    p.alpha -= 0.03;
+    p.size *= 0.95;
+    if(p.alpha <= 0) particles.splice(i,1);
+  });
+}
+
+function drawParticles() {
+  particles.forEach(p=>{
+    ctx.fillStyle = `rgba(255, 255, 0, ${p.alpha})`;
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.size, 0, Math.PI*2);
+    ctx.fill();
+  });
+}
+
+// Pulsation et rotation banane
+let bananaAngle = 0;
+function drawBanana() {
+  bananaAngle += 0.1;
+  const scale = 1 + 0.2 * Math.sin(bananaAngle);
+  ctx.save();
+  ctx.translate(banana.x*gridSize + gridSize/2, banana.y*gridSize + gridSize/2);
+  ctx.rotate(bananaAngle/2);
+  ctx.scale(scale, scale);
+  ctx.fillText("🍌", -gridSize/2 + 2, gridSize/2 - 2);
+  ctx.restore();
+}
+
+function gameLoop() {
+  update();
+  draw();
+}
+
+function update() {
+  const head = {...snake[0]};
+  head.x += velocity.x;
+  head.y += velocity.y;
+
+  if(head.x<0||head.x>=tileCount||head.y<0||head.y>=tileCount||snakeCollision(head)){
+    endGame();
+    return;
+  }
+
+  snake.unshift(head);
+
+  if(head.x===banana.x&&head.y===banana.y){
+    score++;
+    scoreboard.textContent=`Score: ${score}`;
+    eatSound.currentTime=0;
+    eatSound.play();
+    createParticles(banana.x, banana.y);
+
+    if(score>bestScore){
+      bestScore = score;
+      localStorage.setItem("bestScore", bestScore);
+      bestScoreElem.textContent=`Best: ${bestScore}`;
+    }
+
+    placeBanana();
+
+    if(score%5===0 && speed<15){
+      speed += 1;
+      clearInterval(gameInterval);
+      gameInterval = setInterval(gameLoop, 1000/speed);
+    }
+  } else {
+    snake.pop();
+  }
+
+  updateParticles();
+}
+
+function draw() {
+  ctx.fillStyle="#111";
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+
+  // Serpent avec gradient scintillant
+  snake.forEach((seg,index)=>{
+    const gradient = ctx.createLinearGradient(0,0,canvas.width,canvas.height);
+    gradient.addColorStop(0,"#0f0");
+    gradient.addColorStop(1,"#00ff00");
+    ctx.fillStyle=index===0 ? "#00ff00" : gradient;
+    ctx.fillRect(seg.x*gridSize, seg.y*gridSize, gridSize-2, gridSize-2);
+  });
+
+  drawBanana();
+  drawParticles();
+}
+
+function snakeCollision(head){
+  return snake.some((seg,i)=>i!==0 && seg.x===head.x && seg.y===head.y);
+}
+
+function placeBanana(){
+  let newPos;
+  do {
+    newPos = {x: Math.floor(Math.random()*tileCount), y: Math.floor(Math.random()*tileCount)};
+  } while(snake.some(seg=>seg.x===newPos.x && seg.y===newPos.y));
+  banana = newPos;
+}
+
+function endGame(){
+  clearInterval(gameInterval);
+  gameOverElem.style.display="block";
+  gameOverSound.currentTime=0;
+  gameOverSound.play();
+}
+
+document.addEventListener("keydown", e=>{
+  switch(e.key){
+    case "ArrowUp": if(velocity.y!==1) velocity={x:0,y:-1}; break;
+    case "ArrowDown": if(velocity.y!==-1) velocity={x:0,y:1}; break;
+    case "ArrowLeft": if(velocity.x!==1) velocity={x:-1,y:0}; break;
+    case "ArrowRight": if(velocity.x!==-1) velocity={x:1,y:0}; break;
+  }
+});
+
+restartBtn.addEventListener("click", ()=>{
+  snake=[{x:10,y:10}];
+  velocity={x:0,y:0};
+  score=0;
+  speed = 8;
+  scoreboard.textContent=`Score: ${score}`;
+  gameOverElem.style.display="none";
+  particles=[];
+  placeBanana();
+  clearInterval(gameInterval);
+  gameInterval = setInterval(gameLoop, 1000/speed);
+});
+
+placeBanana();
+gameInterval = setInterval(gameLoop, 1000/speed);
+</script>
+
+</body>
+</html>
