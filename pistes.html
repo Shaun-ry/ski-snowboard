@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pistes de Ski – Ski & Snowboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ===== GLOBAL ===== */
+* {margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif;}
+body {min-height:100vh; line-height:1.6; color:#333; overflow-x:hidden; background:#e0f0ff;}
+body::before {content:""; position:fixed; inset:0; background:url("https://wallpaperaccess.com/full/935468.jpg") center/cover no-repeat; z-index:-1; filter:brightness(0.85) blur(1.5px);}
+
+/* ===== HEADER ===== */
+header {background: linear-gradient(rgba(0,0,0,0.15), rgba(0,0,0,0.15)), url("https://rougeetor.ulaval.ca/wp-content/uploads/2017/10/skibazar2017-1496x810.jpg") center/cover no-repeat; color:white; text-align:center; padding:150px 20px; box-shadow:0 15px 30px rgba(0,0,0,0.3); border-bottom-left-radius:0px; border-bottom-right-radius:0px; position:relative;}
+header h1 {font-size:3.4rem; margin-bottom:10px; text-shadow:2px 2px 8px rgba(0,0,0,0.45); animation:fadeInDown 1s ease forwards;}
+header p {font-size:1.4rem; opacity:0.9; text-shadow:1px 1px 6px rgba(0,0,0,0.4); animation:fadeInUp 1s ease forwards; animation-delay:0.5s;}
+.btn-home {display:inline-block; margin-top:25px; padding:12px 25px; background:#ffeb3b; color:#1e3c72; font-weight:700; text-decoration:none; border-radius:12px; box-shadow:0 5px 15px rgba(0,0,0,0.25); transition:all 0.3s ease;}
+.btn-home:hover {background:#ffd600; transform:translateY(-3px) scale(1.05);}
+
+/* ===== NAVIGATION ===== */
+nav {background: linear-gradient(90deg, rgba(30,60,114,0.95), rgba(42,82,152,0.95)); padding:18px 20px; text-align:center; position:sticky; top:0; z-index:1000; border-radius:0 0 20px 20px; box-shadow:0 5px 15px rgba(0,0,0,0.2); backdrop-filter: blur(6px);}
+nav a {color:white; text-decoration:none; margin:0 15px; font-weight:600; padding:6px 14px; border-radius:10px; transition:0.3s;}
+nav a:hover, nav a.active {color:#ffeb3b; background: rgba(255,255,255,0.15); transform:translateY(-3px) scale(1.05);}
+
+/* ===== SECTIONS ===== */
+section {max-width:1100px; margin:80px auto; padding:70px 30px; border-radius:30px; background: rgba(255,255,255,0.95); backdrop-filter: blur(8px); box-shadow:0 20px 60px rgba(0,0,0,0.18); transition: transform 0.5s ease, box-shadow 0.5s ease; position:relative; overflow:hidden;}
+section:hover {transform:translateY(-8px); box-shadow:0 30px 80px rgba(0,0,0,0.25);}
+h2 {text-align:center; margin-bottom:30px; font-size:2.6rem; color:#1e3c72; letter-spacing:1px; position:relative;}
+h2::after {content:""; display:block; width:100px; height:4px; background: linear-gradient(90deg,#1e3c72,#4facfe); margin:10px auto 0; border-radius:8px;}
+.intro {text-align:center; max-width:780px; margin:auto; font-size:1.05rem; line-height:1.8; color:#333;}
+
+/* ===== CARDS ===== */
+.cards {display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:35px; margin-top:45px;}
+.card {background: rgba(255,255,255,0.98); padding:28px 30px; border-radius:25px; box-shadow:0 15px 35px rgba(0,0,0,0.12); transition: all 0.5s ease; overflow:hidden; border-top:none; cursor:pointer; position:relative;}
+.card:hover {transform:translateY(-12px) scale(1.03); box-shadow:0 35px 70px rgba(0,0,0,0.25);}
+.card::before {content:""; position:absolute; inset:0; background:linear-gradient(135deg,rgba(31,80,178,0.05), rgba(79,172,254,0.05)); opacity:0; transition:0.5s; border-radius:25px;}
+.card:hover::before {opacity:1;}
+.card h3 {margin-bottom:14px; color:#1e3c72; font-size:1.3rem; transition:0.3s;}
+.card p {font-size:0.97rem; line-height:1.6;}
+
+/* ===== NESTED CARDS ===== */
+.card .cards {grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); margin-top:15px;}
+
+/* ===== ANIMATIONS SCROLL ===== */
+.reveal {opacity:0; transform:translateY(60px) scale(0.95); transition:all 1s ease;}
+.reveal.active {opacity:1; transform:translateY(0) scale(1);}
+
+/* ===== FOOTER ===== */
+footer {background: linear-gradient(135deg,#1e3c72,#2a5298); color:white; text-align:center; padding:50px 20px; font-size:1rem; border-top-left-radius:25px; border-top-right-radius:25px; box-shadow:0 -5px 25px rgba(0,0,0,0.25);}
+
+/* ===== KEYFRAMES ===== */
+@keyframes fadeInDown {0%{opacity:0; transform:translateY(-40px);} 100%{opacity:1; transform:translateY(0);}}
+@keyframes fadeInUp {0%{opacity:0; transform:translateY(40px);} 100%{opacity:1; transform:translateY(0);}}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>Pistes de Ski</h1>
+<p>Tout savoir sur les pistes et techniques pour profiter de la montagne</p>
+<a href="index.html" class="btn-home">🏠 Retour à l'accueil</a>
+</header>
+
+<nav>
+<a href="#vertes">Pistes Vertes</a>
+<a href="#bleues">Pistes Bleues</a>
+<a href="#rouges">Pistes Rouges</a>
+<a href="#noires">Pistes Noires</a>
+<a href="#techniques-completes">Techniques</a>
+</nav>
+
+<section id="vertes" class="reveal">
+<h2>🎋 Pistes Vertes</h2>
+<p class="intro">Les pistes vertes sont idéales pour les débutants, larges et douces.</p>
+<div class="cards">
+<div class="card"><h3>🌱 Apprentissage</h3><p>Idéale pour apprendre les bases du ski en toute sécurité.</p></div>
+<div class="card"><h3>🏡 Loisir</h3><p>Pistes tranquilles avec faible pente, parfaites pour la famille.</p></div>
+</div>
+</section>
+
+<section id="bleues" class="reveal">
+<h2>🔵 Pistes Bleues</h2>
+<p class="intro">Pour skieurs intermédiaires, légèrement plus raides.</p>
+<div class="cards">
+<div class="card"><h3>⛷️ Technique</h3><p>Idéal pour améliorer sa technique de virage.</p></div>
+<div class="card"><h3>🌄 Panorama</h3><p>Pistes offrant de beaux paysages et sensations douces.</p></div>
+</div>
+</section>
+
+<section id="rouges" class="reveal">
+<h2>🔴 Pistes Rouges</h2>
+<p class="intro">Pour skieurs expérimentés, pentes plus raides et challenges.</p>
+<div class="cards">
+<div class="card"><h3>⚡ Challenge</h3><p>Descente rapide avec virages serrés.</p></div>
+<div class="card"><h3>🏔️ Montagne</h3><p>Offre sensations fortes et panoramas spectaculaires.</p></div>
+</div>
+</section>
+
+<section id="noires" class="reveal">
+<h2>⚫ Pistes Noires</h2>
+<p class="intro">Pour experts et professionnels, pentes très raides et techniques.</p>
+<div class="cards">
+<div class="card"><h3>🔥 Extrême</h3><p>Descente difficile réservée aux skieurs très expérimentés.</p></div>
+<div class="card"><h3>🏔️ Hors-piste</h3><p>Pour amateurs de freeride et sensations intenses.</p></div>
+</div>
+</section>
+
+<section id="techniques-completes" class="reveal">
+<h2>🏂 Techniques Complètes de Ski</h2>
+<p class="intro">Découvrez toutes les techniques essentielles pour skier en toute sécurité et progresser selon votre niveau.</p>
+
+<div class="cards">
+<!-- Virage -->
+<div class="card">
+  <h3>⛷️ Virages</h3>
+  <p>Apprenez à tourner correctement selon votre niveau :</p>
+  <div class="cards">
+    <div class="card"><h3>🟢 Débutant</h3><p>Virage en chasse-neige, contrôle facile de la vitesse.</p></div>
+    <div class="card"><h3>🔵 Intermédiaire</h3><p>Virage parallèle, meilleure fluidité et précision.</p></div>
+    <div class="card"><h3>🔴 Avancé</h3><p>Virage carving pour vitesse et style.</p></div>
+  </div>
+</div>
+
+<!-- Freinage -->
+<div class="card">
+  <h3>🌀 Freinage</h3>
+  <p>Comment contrôler sa vitesse selon votre niveau :</p>
+  <div class="cards">
+    <div class="card"><h3>🟢 Débutant</h3><p>Freiner en chasse-neige.</p></div>
+    <div class="card"><h3>🔵 Intermédiaire</h3><p>Freiner par dérapage contrôlé.</p></div>
+    <div class="card"><h3>🔴 Avancé</h3><p>Freinage carving et techniques rapides.</p></div>
+  </div>
+</div>
+
+<!-- Équilibre -->
+<div class="card">
+  <h3>⚡ Équilibre</h3>
+  <p>Maintenir la stabilité sur toutes les pistes :</p>
+  <div class="cards">
+    <div class="card"><h3>🟢 Débutant</h3><p>Posture de base, genoux légèrement fléchis.</p></div>
+    <div class="card"><h3>🔵 Intermédiaire</h3><p>Position dynamique pour virages fluides.</p></div>
+    <div class="card"><h3>🔴 Avancé</h3><p>Optimisation du centre de gravité pour vitesse et sauts.</p></div>
+  </div>
+</div>
+
+<!-- Saut et petites figures -->
+<div class="card">
+  <h3>🏔️ Sauts & Figures</h3>
+  <p>Pour ceux qui veulent ajouter des tricks :</p>
+  <div class="cards">
+    <div class="card"><h3>🟢 Débutant</h3><p>Petits sauts sur piste douce.</p></div>
+    <div class="card"><h3>🔵 Intermédiaire</h3><p>Petits tremplins et figures simples.</p></div>
+    <div class="card"><h3>🔴 Avancé</h3><p>Figures complexes en snowpark.</p></div>
+  </div>
+</div>
+
+</div>
+</section>
+
+<footer>
+<p>2025 – Ski & Snowboard ❄️ Par Shaun Favry</p>
+</footer>
+
+<script>
+// ===== SCROLL REVEAL =====
+const reveals = document.querySelectorAll(".reveal");
+window.addEventListener("scroll", () => {
+  reveals.forEach(el => {
+    if(el.getBoundingClientRect().top < window.innerHeight - 100) el.classList.add("active");
+  });
+});
+
+// ===== SCROLL SPY (active nav link) =====
+const sections = document.querySelectorAll("section");
+const navLinks = document.querySelectorAll("nav a");
+window.addEventListener("scroll", () => {
+  let current = "";
+  sections.forEach(sec => {
+    const sectionTop = sec.offsetTop - 120;
+    if(pageYOffset >= sectionTop) current = sec.getAttribute("id");
+  });
+  navLinks.forEach(link => {
+    link.classList.remove("active");
+    if(link.getAttribute("href") === "#" + current) link.classList.add("active");
+  });
+});
+</script>
+
+</body>
+</html>

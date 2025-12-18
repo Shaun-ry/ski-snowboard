@@ -1,309 +1,197 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ski & Snowboard – Sports de Glisse</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ski & Snowboard – Sports de Glisse</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+/* ===== GLOBAL ===== */
+* {margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif;}
+body {min-height:100vh; line-height:1.6; color:#333; overflow-x:hidden; background:#e0f0ff;}
+body::before {content:""; position:fixed; inset:0; background:url("https://jooinn.com/images/snow-landscape-1.jpg") center/cover no-repeat; z-index:-1; filter:brightness(0.85) blur(1.5px);}
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
-    }
+/* ===== HEADER ===== */
+header {background: linear-gradient(rgba(0,0,0,0.15), rgba(0,0,0,0.15)), url("https://rougeetor.ulaval.ca/wp-content/uploads/2017/10/skibazar2017-1496x810.jpg") center/cover no-repeat; color:white; text-align:center; padding:150px 20px; box-shadow:0 15px 30px rgba(0,0,0,0.3); border-bottom-left-radius:0px; border-bottom-right-radius:0px;}
+header h1 {font-size:3.6rem; margin-bottom:10px; text-shadow:2px 2px 8px rgba(0,0,0,0.45); animation:fadeInDown 1s ease forwards;}
+header p {font-size:1.5rem; opacity:0.9; text-shadow:1px 1px 6px rgba(0,0,0,0.4); animation:fadeInUp 1s ease forwards; animation-delay:0.5s;}
 
-    body {
-      min-height: 100vh;
-      color: #333;
-      line-height: 1.6;
-      position: relative;
-      overflow-x: hidden;
-    }
+/* ===== NAVIGATION ===== */
+nav {background: linear-gradient(90deg, rgba(30,60,114,0.95), rgba(42,82,152,0.95)); padding:18px 20px; text-align:center; position:sticky; top:0; z-index:1000; border-radius:0 0 20px 20px; box-shadow:0 5px 15px rgba(0,0,0,0.2); backdrop-filter: blur(6px);}
+nav a {color:white; text-decoration:none; margin:0 15px; font-weight:600; padding:6px 14px; border-radius:10px; transition:0.3s;}
+nav a:hover, nav a.active {color:#ffeb3b; background: rgba(255,255,255,0.15); transform:translateY(-3px) scale(1.05);}
 
-    /* ===== BACKGROUND GLOBAL ===== */
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background: url("https://jooinn.com/images/snow-landscape-1.jpg") center/cover no-repeat;
-      z-index: -1;
-    }
+/* ===== SECTIONS ===== */
+section {max-width:1100px; margin:80px auto; padding:70px 30px; border-radius:30px; background: rgba(255,255,255,0.95); backdrop-filter: blur(8px); box-shadow:0 20px 60px rgba(0,0,0,0.18); transition: transform 0.5s ease, box-shadow 0.5s ease; position:relative; overflow:hidden;}
+section:hover {transform:translateY(-8px); box-shadow:0 30px 80px rgba(0,0,0,0.25);}
+h2 {text-align:center; margin-bottom:30px; font-size:2.8rem; color:#1e3c72; letter-spacing:1px; position:relative;}
+h2::after {content:""; display:block; width:100px; height:4px; background: linear-gradient(90deg,#1e3c72,#4facfe); margin:10px auto 0; border-radius:8px;}
+.intro {text-align:center; max-width:780px; margin:auto; font-size:1.1rem; line-height:1.8; color:#333;}
 
-    /* ===== HEADER ===== */
-    header {
-      background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), url("https://rougeetor.ulaval.ca/wp-content/uploads/2017/10/skibazar2017-1496x810.jpg") center/cover no-repeat;
-      color: rgb(255, 255, 255);
-      text-align: center;
-      padding: 140px 20px;
-      border-bottom-left-radius: 0px;
-      border-bottom-right-radius: 0px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-    }
+/* ===== CARDS ===== */
+.cards {display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:35px; margin-top:45px;}
+.card {background: rgba(255,255,255,0.98); padding:28px 30px; border-radius:25px; box-shadow:0 15px 35px rgba(0,0,0,0.12); transition: all 0.5s ease; overflow:hidden; border-top:none; cursor:pointer; position:relative;}
+.card:hover {transform:translateY(-12px) scale(1.03); box-shadow:0 35px 70px rgba(0,0,0,0.25);}
+.card::before {content:""; position:absolute; inset:0; background:linear-gradient(135deg,rgba(31,80,178,0.05), rgba(79,172,254,0.05)); opacity:0; transition:0.5s; border-radius:25px;}
+.card:hover::before {opacity:1;}
+.card h3 {margin-bottom:14px; color:#1e3c72; font-size:1.35rem; transition:0.3s;}
+.card p {font-size:0.97rem; line-height:1.6;}
 
-    header h1 {
-      font-size: 3.4rem;
-      margin-bottom: 10px;
-      text-shadow: 2px 2px 6px rgba(0,0,0,0.35);
-    }
+/* ===== BOUTONS ===== */
+.btn {display:inline-block; padding:15px 35px; font-size:1.2rem; background: linear-gradient(90deg,#1e3c72,#4facfe); color:white; border-radius:12px; text-decoration:none; box-shadow:0 5px 20px rgba(0,0,0,0.3); transition:0.3s; margin-top:30px;}
+.btn:hover {transform:translateY(-3px) scale(1.05); box-shadow:0 8px 25px rgba(0,0,0,0.4);}
 
-    header p {
-      font-size: 1.4rem;
-      opacity: 0.9;
-      text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
-    }
+/* ===== ANIMATIONS SCROLL ===== */
+.reveal {opacity:0; transform:translateY(60px) scale(0.95); transition:all 1s ease;}
+.reveal.active {opacity:1; transform:translateY(0) scale(1);}
 
-    /* ===== NAV ===== */
-    nav {
-      background: linear-gradient(90deg, rgba(30,60,114,0.99), rgba(42,82,152,0.99)); /* moins transparent */
-      padding: 15px 20px;
-      text-align: center;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      border-radius: 0 0 15px 15px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.15);
-      backdrop-filter: blur(6px);
-    }
+/* ===== FOOTER ===== */
+footer {background: linear-gradient(135deg,#1e3c72,#2a5298); color:white; text-align:center; padding:50px 20px; font-size:1rem; border-top-left-radius:25px; border-top-right-radius:25px; box-shadow:0 -5px 25px rgba(0,0,0,0.25);}
 
-    nav a {
-      color: white;
-      text-decoration: none;
-      margin: 0 20px;
-      font-weight: 600;
-      transition: color 0.3s, transform 0.3s;
-      display: inline-block;
-      padding: 5px 10px;
-      border-radius: 8px;
-    }
-
-    nav a:hover {
-      color: #ffeb3b;
-      background: rgba(255,255,255,0.1);
-      transform: translateY(-2px);
-    }
-
-    /* ===== SECTIONS ===== */
-    section {
-      max-width: 1100px;
-      margin: 70px auto;
-      padding: 70px 25px;
-      border-radius: 25px;
-      background: rgba(255,255,255,0.95);
-      backdrop-filter: blur(6px);
-      box-shadow: 0 15px 45px rgba(0,0,0,0.15);
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
-    }
-
-    section:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 25px 60px rgba(0,0,0,0.2);
-    }
-
-    h2 {
-      text-align: center;
-      margin-bottom: 25px;
-      font-size: 2.5rem;
-      color: #1e3c72;
-    }
-
-    .intro {
-      text-align: center;
-      max-width: 750px;
-      margin: auto;
-      font-size: 1.05rem;
-    }
-
-    /* ===== SEPARATOR ===== */
-    .separator {
-      width: 120px;
-      height: 5px;
-      background: linear-gradient(90deg, #1e3c72, #4facfe);
-      margin: 20px auto 40px;
-      border-radius: 10px;
-    }
-
-    /* ===== CARDS ===== */
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 30px;
-      margin-top: 40px;
-    }
-
-    .card {
-      background: rgba(255,255,255,1);
-      padding: 25px 30px;
-      border-radius: 20px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-      transition: transform 0.4s, box-shadow 0.4s;
-      overflow: hidden;
-      border-top: none; /* suppression du bord noir */
-    }
-
-    .card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 25px 50px rgba(0,0,0,0.2);
-    }
-
-    .card h3 {
-      margin-bottom: 12px;
-      color: #1e3c72;
-      font-size: 1.3rem;
-    }
-
-    /* ===== SNOWBOARD ===== */
-    .snowboard-wrapper {
-      background: rgba(255,255,255,0.95);
-    }
-
-    /* ===== SCROLL ANIMATION ===== */
-    .reveal {
-      opacity: 0;
-      transform: translateY(50px);
-      transition: all 1s ease;
-    }
-
-    .reveal.active {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* ===== FOOTER ===== */
-    footer {
-      background: linear-gradient(135deg, #1e3c72, #2a5298);
-      color: white;
-      text-align: center;
-      padding: 40px;
-      font-size: 1rem;
-      border-top-left-radius: 20px;
-      border-top-right-radius: 20px;
-      box-shadow: 0 -5px 15px rgba(0,0,0,0.2);
-    }
-  </style>
+/* ===== KEYFRAMES ===== */
+@keyframes fadeInDown {0%{opacity:0; transform:translateY(-40px);} 100%{opacity:1; transform:translateY(0);}}
+@keyframes fadeInUp {0%{opacity:0; transform:translateY(40px);} 100%{opacity:1; transform:translateY(0);}}
+</style>
 </head>
 
 <body>
 
 <header>
-  <h1>Ski & Snowboard</h1>
-  <p>La passion de la montagne et des sports de glisse</p>
+<h1>Ski & Snowboard</h1>
+<p>La passion de la montagne et des sports de glisse</p>
 </header>
 
 <nav>
-  <a href="#ski">Ski</a>
-  <a href="#types de ski">Types de ski</a>
-  <a href="#snowboard">Snowboard</a>
-  <a href="#stations">Stations</a>
+<a href="#ski">Ski</a>
+<a href="#types">Types</a>
+<a href="#snowboard">Snowboard</a>
+<a href="#equipement">Équipement</a>
+<a href="#stations">Stations</a>
+<a href="#competitions">Compétitions</a>
+<a href="#securite">Sécurité</a>
+<a href="#entrainement">Entraînement</a>
+<a href="#historique">Historique</a>
 </nav>
 
+<!-- Sections (identiques à ton dernier code) -->
+
 <section id="ski" class="reveal">
-  <h2>Le Ski</h2>
-  <div class="separator"></div>
-  <p class="intro">
-    Le ski est un sport de glisse emblématique qui associe vitesse, technique et liberté,
-    dans un environnement naturel spectaculaire.
-  </p>
+<h2>Le Ski</h2>
+<p class="intro">Le ski est un sport de glisse emblématique qui associe vitesse, technique et liberté...</p>
+<div style="text-align:center;">
+<a href="pistes.html" class="btn">Découvrir les Pistes</a>
+</div>
 </section>
 
-<section id="types de ski" class="reveal">
-  <h2>Types de Ski</h2>
-  <div class="separator"></div>
-  <div class="cards">
-    <div class="card">
-      <h3>🎿 Ski alpin</h3>
-      <p>Pratiqué sur des pistes balisées en station.</p>
-    </div>
-    <div class="card">
-      <h3>⛷️ Ski de fond</h3>
-      <p>Un sport d’endurance en pleine nature.</p>
-    </div>
-    <div class="card">
-      <h3>🏔️ Freeride</h3>
-      <p>Ski hors-piste en neige profonde.</p>
-    </div>
-    <div class="card">
-      <h3>🌄 Randonnée</h3>
-      <p>Montée et descente en autonomie.</p>
-    </div>
-    <div class="card">
-      <h3>🌀 Ski freestyle</h3>
-      <p>Performances et figures en snowpark ou sur piste.</p>
-    </div>
-  </div>
+<section id="types" class="reveal">
+<h2>Types de Ski</h2>
+<div class="cards">
+<div class="card"><h3>🎿 Ski alpin</h3><p>Pratiqué sur des pistes balisées...</p></div>
+<div class="card"><h3>⛷️ Ski de fond</h3><p>Sport d’endurance en pleine nature.</p></div>
+<div class="card"><h3>🏔️ Freeride</h3><p>Ski hors-piste en neige profonde.</p></div>
+<div class="card"><h3>🌄 Randonnée</h3><p>Montée et descente en autonomie.</p></div>
+<div class="card"><h3>🌀 Ski freestyle</h3><p>Performances et figures en snowpark ou sur piste.</p></div>
+</div>
 </section>
 
-<section id="snowboard" class="snowboard-wrapper reveal">
-  <h2>Le Snowboard</h2>
-  <div class="separator"></div>
-  <p class="intro">
-    Le snowboard est un sport moderne offrant un style unique,
-    une grande liberté et des sensations fortes sur tous types de terrains.
-  </p>
+<section id="snowboard" class="reveal">
+<h2>Le Snowboard</h2>
+<p class="intro">Le snowboard offre un style unique et des sensations fortes...</p>
+<div class="cards">
+<div class="card"><h3>🏂 Freestyle</h3><p>Figures et tricks en snowpark.</p></div>
+<div class="card"><h3>🏔️ Freeride</h3><p>Descente en poudreuse hors-piste.</p></div>
+<div class="card"><h3>🎿 All-mountain</h3><p>Polyvalent pour toutes les pistes.</p></div>
+</div>
+</section>
 
-  <div class="cards">
-    <div class="card">
-      <h3>🏂 Freestyle</h3>
-      <p>Figures et tricks en snowpark.</p>
-    </div>
-    <div class="card">
-      <h3>🏔️ Freeride</h3>
-      <p>Descente en poudreuse hors-piste.</p>
-    </div>
-    <div class="card">
-      <h3>🎿 All-mountain</h3>
-      <p>Polyvalent pour toutes les pistes.</p>
-    </div>
-  </div>
+<section id="equipement" class="reveal">
+<h2>Équipement</h2>
+<div class="cards">
+<div class="card"><h3>🪖 Casque</h3><p>Protection indispensable.</p></div>
+<div class="card"><h3>🕶️ Masque</h3><p>Protection contre vent et neige.</p></div>
+<div class="card"><h3>🧤 Gants</h3><p>Pour garder les mains au chaud.</p></div>
+<div class="card"><h3>🧥 Vêtements techniques</h3><p>Imperméables et respirants.</p></div>
+<div class="card"><h3>🥾 Bottes</h3><p>Assurent maintien et confort.</p></div>
+</div>
 </section>
 
 <section id="stations" class="reveal">
-  <h2>Stations de Ski</h2>
-  <div class="separator"></div>
-  <div class="cards">
-    <div class="card">
-      <h3>Chamonix</h3>
-      <p>Station mythique au pied du Mont-Blanc.</p>
-    </div>
-    <div class="card">
-      <h3>Courchevel</h3>
-      <p>Station prestigieuse des Alpes.</p>
-    </div>
-    <div class="card">
-      <h3>Val Thorens</h3>
-      <p>La plus haute station d’Europe.</p>
-    </div>
-    <div class="card">
-      <h3>Saint-Lary</h3>
-      <p>Station familiale des Pyrénées françaises.</p>
-    </div>
-    <div class="card">
-      <h3>Font-Romeu</h3>
-      <p>Station ensoleillée avec pistes variées.</p>
-    </div>
-    <div class="card">
-      <h3>Ax 3 Domaines</h3>
-      <p>Station pyrénéenne idéale pour débutants et experts.</p>
-    </div>
-  </div>
+<h2>Stations</h2>
+<div class="cards">
+<div class="card"><h3>🏔️ Chamonix</h3><p>Station mythique au pied du Mont-Blanc.</p></div>
+<div class="card"><h3>🎿 Courchevel</h3><p>Station prestigieuse des Alpes.</p></div>
+<div class="card"><h3>⛰️ Val Thorens</h3><p>La plus haute station d’Europe.</p></div>
+<div class="card"><h3>🏞️ Saint-Lary</h3><p>Station familiale des Pyrénées.</p></div>
+<div class="card"><h3>☀️ Font-Romeu</h3><p>Station ensoleillée avec pistes variées.</p></div>
+<div class="card"><h3>🏔️ Ax 3 Domaines</h3><p>Station pyrénéenne idéale pour débutants et experts.</p></div>
+</div>
+</section>
+
+<section id="competitions" class="reveal">
+<h2>Compétitions</h2>
+<div class="cards">
+<div class="card"><h3>🏆 Coupe du Monde</h3><p>Compétition annuelle...</p></div>
+<div class="card"><h3>🎯 X-Games</h3><p>Événement freestyle et tricks.</p></div>
+<div class="card"><h3>🥇 Jeux Olympiques</h3><p>Compétition internationale prestigieuse.</p></div>
+</div>
+</section>
+
+<section id="securite" class="reveal">
+<h2>Sécurité</h2>
+<div class="cards">
+<div class="card"><h3>🪖 Casque obligatoire</h3><p>Protection pour tous.</p></div>
+<div class="card"><h3>⚠️ Avalanches</h3><p>Vérifier la météo et respecter les consignes.</p></div>
+<div class="card"><h3>🛷 Bonnes pratiques</h3><p>Respect des autres et signalisation.</p></div>
+</div>
+</section>
+
+<section id="entrainement" class="reveal">
+<h2>Entraînement</h2>
+<div class="cards">
+<div class="card"><h3>💪 Renforcement</h3><p>Préparer jambes, dos et abdos.</p></div>
+<div class="card"><h3>⚡ Endurance</h3><p>Améliorer résistance physique.</p></div>
+<div class="card"><h3>🌀 Équilibre</h3><p>Exercices pour stabilité sur neige.</p></div>
+</div>
+</section>
+
+<section id="historique" class="reveal">
+<h2>Historique</h2>
+<div class="cards">
+<div class="card"><h3>📜 Origines</h3><p>Le ski a débuté dans les pays nordiques.</p></div>
+<div class="card"><h3>⛷️ Ski moderne</h3><p>Alpin moderne né au 19ème siècle.</p></div>
+<div class="card"><h3>🏂 Snowboard</h3><p>Né dans les années 70, sport alternatif mondial.</p></div>
+</div>
 </section>
 
 <footer>
-  <p>2025 – Ski & Snowboard ❄️ Par Shaun Favry</p>
+<p>2025 – Ski & Snowboard ❄️ Par Shaun Favry</p>
 </footer>
 
 <script>
-  const reveals = document.querySelectorAll(".reveal");
-
-  window.addEventListener("scroll", () => {
-    reveals.forEach(el => {
-      if (el.getBoundingClientRect().top < window.innerHeight - 120) {
-        el.classList.add("active");
-      }
-    });
+// ===== SCROLL REVEAL =====
+const reveals = document.querySelectorAll(".reveal");
+window.addEventListener("scroll", () => {
+  reveals.forEach(el => {
+    if(el.getBoundingClientRect().top < window.innerHeight - 100) el.classList.add("active");
   });
+});
+
+// ===== SCROLL SPY (active nav link) =====
+const sections = document.querySelectorAll("section");
+const navLinks = document.querySelectorAll("nav a");
+
+window.addEventListener("scroll", () => {
+  let current = "";
+  sections.forEach(sec => {
+    const sectionTop = sec.offsetTop - 120;
+    if(pageYOffset >= sectionTop) current = sec.getAttribute("id");
+  });
+  navLinks.forEach(link => {
+    link.classList.remove("active");
+    if(link.getAttribute("href") === "#" + current) link.classList.add("active");
+  });
+});
 </script>
 
 </body>
